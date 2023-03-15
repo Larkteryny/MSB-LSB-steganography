@@ -43,7 +43,7 @@ def set_bit(n, i, x):
 		n |= mask
 	return n
 
-# Embed payload file into LSB bits of an image
+# Embed payload file into MSB bits of an image
 def embed(imgFile, payload, password):
 	# Process source image
 	img = Image.open(imgFile)
@@ -98,7 +98,7 @@ def extract(in_file, out_file, password):
 	conv = img.convert("RGBA").getdata()
 	print("[+] Image size: %dx%d pixels." % (width, height))
 
-	# Extract LSBs
+	# Extract MSBs
 	v = []
 	for h in range(height):
 		for w in range(width):
@@ -116,11 +116,11 @@ def extract(in_file, out_file, password):
 	
 	print("[+] Written extracted data to %s." % out_file)
 
-# Statistical analysis of an image to detect LSB steganography
+# Statistical analysis of an image to detect MSB steganography
 def analyse(in_file):
 	'''
 	- Split the image into blocks.
-	- Compute the average value of the LSBs for each block.
+	- Compute the average value of the MSBs for each block.
 	- The plot of the averages should be around 0.5 for zones that contain
 	  hidden encrypted messages (random data).
 	'''
@@ -130,10 +130,10 @@ def analyse(in_file):
 	print("[+] Image size: %dx%d pixels." % (width, height))
 	conv = img.convert("RGBA").getdata()
 
-	# Extract LSBs
-	vr = []	# Red LSBs
-	vg = []	# Green LSBs
-	vb = []	# LSBs
+	# Extract MSBs
+	vr = []	# Red MSBs
+	vg = []	# Green MSBs
+	vb = []	# MSBs
 	for h in range(height):
 		for w in range(width):
 			(r, g, b, a) = conv.getpixel((w, h))
@@ -141,7 +141,7 @@ def analyse(in_file):
 			vg.append(g >> 7)
 			vb.append(b >> 7)
 
-	# Average colours' LSB per each block
+	# Average colours' MSB per each block
 	avgR = []
 	avgG = []
 	avgB = []
@@ -154,7 +154,7 @@ def analyse(in_file):
 	numBlocks = len(avgR)
 	blocks = [i for i in range(0, numBlocks)]
 	plt.axis([0, len(avgR), 0, 1])
-	plt.ylabel('Average LSB per block')
+	plt.ylabel('Average MSB per block')
 	plt.xlabel('Block number')
 
 #	plt.plot(blocks, avgR, 'r.')
