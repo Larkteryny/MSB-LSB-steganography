@@ -164,7 +164,7 @@ def analyse(in_file):
 	plt.show()
 
 def usage(progName):
-	print("MSB steganogprahy. Hide files within most significant bits of images.\n")
+	print("MSB steganography. Hide files within most significant bits of images.\n")
 	print("Usage:")
 	print("  %s hide <img_file> <payload_file> <password>" % progName)
 	print("  %s extract <stego_file> <out_file> <password>" % progName)
