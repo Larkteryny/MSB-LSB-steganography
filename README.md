@@ -1,7 +1,6 @@
 ![logo](images/logo.png)
 
 
-cloacked-pixel
 ==========
 
 Platform independent Python3 tool to implement LSB/MSB image steganography and a basic detection technique. Features:
